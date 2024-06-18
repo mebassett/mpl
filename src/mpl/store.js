@@ -7,6 +7,7 @@ import Config from './config'
 
 export default class Store {
   constructor(reducer, network) {
+    // typedef network : (ds: Automerge.DocSet) => MPL.Network 
     this.reducer   = reducer
     this.listeners = []
     this.state     = this.newDocument()
@@ -20,7 +21,7 @@ export default class Store {
       }
     })
 
-    this.network = network || new Network(this.docSet)
+    this.network = network(this.docSet) // || new Network(this.docSet)
     this.network.connect({
       // we use our automerge session ID as the peer id,
       // but we probably want to use the network ID for the document actorIds

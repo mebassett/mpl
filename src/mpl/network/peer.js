@@ -20,6 +20,7 @@ export default class Peer extends EventEmitter {
       }
     })
 
+
     // we're in electron/browser
     if (typeof window != 'undefined') {
       this.wrtc = {

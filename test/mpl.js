@@ -1,12 +1,13 @@
 import assert from 'assert'
 import MPL from '../src/mpl'
 import dotenv from 'dotenv'
-import wrtc from 'wrtc'
+import wrtc from '@roamhq/wrtc'
 import childProcess from 'child_process'
 
 dotenv.config()
 
 function createStore() {
+  const mkNetwork = ds => new MPL.Network(ds, wrtc);
   let store = new MPL.Store((state, action) => {
     switch(action.type) {
       case "INCREMENT":
@@ -16,7 +17,7 @@ function createStore() {
       default:
         return state
     }
-  }, new MPL.Network(wrtc))
+  }, mkNetwork)
 
   return store
 }
