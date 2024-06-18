@@ -1,0 +1,2 @@
+sudo npm i -g node-gyp 
+sudo npm i -g @mapbox/node-pre-gyp
