@@ -5,7 +5,7 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "compile": "babel src --out-dir lib",
+    "compile": "babel src/ --out-dir lib",
     "test": "mocha --compilers js:babel-core/register test/mpl.js",
     "watch": "babel src --watch --out-dir lib"
   },
@@ -22,7 +22,7 @@
     "debug": "^2.6.8",
     "dotenv": "^4.0.0",
     "express": "^4.15.3",
-    "lz4": "^0.6.5",
+    "lz4js": "^0.2.0",
     "uuid": "^3.0.1",
     "ws": "^3.0.0"
   },

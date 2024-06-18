@@ -1,4 +1,4 @@
-import lz4 from 'lz4'
+import lz4 from 'lz4js'
 import EventEmitter from 'events'
 
 export default class Peer extends EventEmitter {
