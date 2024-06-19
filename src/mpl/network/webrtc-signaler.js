@@ -2,9 +2,10 @@ import EventEmitter from 'events'
 
 // Listen to peergroup, and when it adds a peer, listen to that peer
 // so that we can tell others about it when it connects / disconnects.
-export default class WebRTCSignaler {
+export default class WebRTCSignaler extends EventEmitter {
   // todo: should this have the peergroup or should the peergroup listen to it?
   constructor(peergroup) {
+    super()
     this.peerDocs = {}
     peergroup.on('peer', (peer) => {
       peer.on('connect', () => {

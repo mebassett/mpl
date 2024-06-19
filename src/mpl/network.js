@@ -1,4 +1,3 @@
-import BonjourSignaler from './network/bonjour-signaler'
 import WebRTCSignaler from './network/webrtc-signaler'
 import PeerStats from './network/peer-stats'
 
@@ -12,7 +11,6 @@ export default class Network extends EventEmitter {
 
     this.peergroup = new PeerGroup(docSet, wrtc)
 
-    this.signaler = new BonjourSignaler(this.peergroup)
     this.webRTCSignaler = new WebRTCSignaler(this.peergroup)
     this.peerStats = new PeerStats(this.peergroup)
 
@@ -27,19 +25,12 @@ export default class Network extends EventEmitter {
 
     // we define "connect" and "disconnect" for ourselves as whether
     // we're connected to the signaller.
-    this.signaler.on('connect', () => {
-      this.peergroup.self().emit('connect')
-    })
-    this.signaler.on('disconnect', () => {
-      this.peergroup.self().emit('disconnect')
-    })
 
     let name   = this.config.name || process.env.NAME
     let peerId = this.config.peerId
     if (!peerId) throw new Error("peerId required, not found in config")
     this.peergroup.join(peerId, name)
 
-    this.signaler.start()
     this.connected = true
   }
 
@@ -54,7 +45,6 @@ export default class Network extends EventEmitter {
   disconnect() {
     if (this.connected == false) throw "network already disconnected - connect first"
     console.log("NETWORK DISCONNECT")
-    this.signaler.stop()
     this.peergroup.close()
     this.connected = false
   }
